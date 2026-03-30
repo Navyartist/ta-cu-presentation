@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light" style=""><head>
+<meta charset="utf-8">
+<meta content="width=1280, height=720, initial-scale=1.0" name="viewport">
+<title>핵심 기능 1 - 타슈 지도 및 주행 추적</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&amp;family=Do+Hyeon&amp;display=swap" rel="stylesheet">
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            width: 1280px;
+            height: 720px;
+            overflow: hidden;
+            background-color: #f8fcf9;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        .slide-container {
+            position: relative;
+            width: 1280px;
+            height: 720px;
+            overflow: hidden;
+            background-color: #ffffff;
+        }
+        /* 그리드 패턴 배경 */
+        .grid-bg {
+            background-image: linear-gradient(rgba(46, 204, 113, 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(46, 204, 113, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+    </style>
+</head>
+<body style="">
+<div class="slide-container grid-bg">
+<!-- 상단 헤더 배경 -->
+<div data-object="true" data-object-type="shape" style="position: absolute; left: 0; top: 0; width: 1280px; height: 100px; background-color: #0e381e; z-index: 1;"></div>
+<!-- 로고/뱃지 영역 -->
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 50px; top: 30px; width: 300px; height: 40px; z-index: 10;">
+<p style="margin: 0; font-size: 20px; color: #ffffff; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">
+<i class="fas fa-leaf" style="color: #2ecc71; margin-right: 8px;"></i>TA-CU</p>
+</div>
+<!-- 페이지 타이틀 -->
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 50px; top: 120px; width: 800px; height: 80px; z-index: 10;">
+<p style="margin: 0; font-family: 'Do Hyeon', sans-serif; font-size: 48px; color: #0e381e; line-height: 1.2;">
+                핵심 기능 1 — <span style="color: #27ae60;">타슈 지도·주행 추적</span>
+</p>
+</div>
+<!-- 왼쪽 컨텐츠 영역 (기능 설명) -->
+<!-- 1. 타슈 Open API 연동 -->
+<div data-object="true" data-object-type="shape" style="position: absolute; left: 50px; top: 220px; width: 560px; height: 130px; background-color: #f0fdf4; border-left: 5px solid #2ecc71; border-radius: 0 8px 8px 0; z-index: 2;"></div>
+<div data-object="true" data-object-type="icon" style="position: absolute; left: 70px; top: 235px; width: 40px; height: 40px; font-size: 28px; color: #2ecc71; z-index: 10; text-align: center;">
+<i class="fas fa-map-marked-alt"></i>
+</div>
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 130px; top: 235px; width: 460px; height: 100px; z-index: 10;">
+<p style="margin: 0 0 10px 0; font-size: 22px; font-weight: 700; color: #0e381e;">실시간 타슈 대여소 지도</p>
+<p style="margin: 0; font-size: 18px; color: #555555; line-height: 1.5;">
+                공공데이터포털 <b>타슈 Open API</b>와 연동하여<br>카카오맵 위에 전체 대여소 및 대여 가능 자전거 수 표시
+            </p>
+</div>
+<!-- 2. GPS 실시간 경로 추적 -->
+<div data-object="true" data-object-type="shape" style="position: absolute; left: 50px; top: 370px; width: 560px; height: 130px; background-color: #fff5f5; border-left: 5px solid #e74c3c; border-radius: 0 8px 8px 0; z-index: 2;"></div>
+<div data-object="true" data-object-type="icon" style="position: absolute; left: 70px; top: 385px; width: 40px; height: 40px; font-size: 28px; color: #e74c3c; z-index: 10; text-align: center;">
+<i class="fas fa-route"></i>
+</div>
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 130px; top: 385px; width: 460px; height: 100px; z-index: 10;">
+<p style="margin: 0 0 10px 0; font-size: 22px; font-weight: 700; color: #c0392b;">GPS 기반 주행 경로 추적</p>
+<p style="margin: 0; font-size: 18px; color: #555555; line-height: 1.5;">
+                이용 시작부터 종료 시점까지 사용자의 이동 경로를<br>지도 위에 실시간 <b>Polyline</b>으로 시각화하여 제공
+            </p>
+</div>
+<!-- 3. Accuracy 필터링 -->
+<div data-object="true" data-object-type="shape" style="position: absolute; left: 50px; top: 520px; width: 560px; height: 160px; background-color: #e8f6fd; border-left: 5px solid #3498db; border-radius: 0 8px 8px 0; z-index: 2;"></div>
+<div data-object="true" data-object-type="icon" style="position: absolute; left: 70px; top: 535px; width: 40px; height: 40px; font-size: 28px; color: #3498db; z-index: 10; text-align: center;">
+<i class="fas fa-filter"></i>
+</div>
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 130px; top: 535px; width: 460px; height: 140px; z-index: 10;">
+<p style="margin: 0 0 10px 0; font-size: 22px; font-weight: 700; color: #2980b9;">데이터 품질: Accuracy 30m 필터</p>
+<p style="margin: 0; font-size: 18px; color: #555555; line-height: 1.5;">
+                GPS 신호의 정확도(Accuracy)가 <span style="color: #2980b9; font-weight: 700; background-color: rgba(52, 152, 219, 0.1);">30m 이상인 오차 데이터는 자동 제외</span>하여,<br>
+                실제 이동 거리와 탄소 절감량 계산의 신뢰도 확보
+            </p>
+</div>
+<!-- 오른쪽 컨텐츠 영역 (이미지) -->
+<!-- 목업 프레임 -->
+<div data-object="true" data-object-type="shape" style="position: absolute; left: 680px; top: 160px; width: 520px; height: 500px; background-color: #ffffff; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); z-index: 3;"></div>
+<!-- 타슈 지도 이미지 (실제 스크린샷 활용) -->
+<div data-object="true" data-object-type="shape" style="position: absolute; left: 700px; top: 180px; width: 230px; height: 220px; background-color: #ffffff; border-radius: 16px; box-shadow: 0 6px 16px rgba(0,0,0,0.08); z-index: 4;"></div>
+<div data-object="true" data-object-type="image" style="position: absolute; left: 712px; top: 192px; width: 206px; height: 196px; border-radius: 12px; z-index: 5;">
+<img alt="slide4_1" src="src/slide4_1.png" style="width: 100%; height: 100%; object-fit: contain; border-radius: 12px; background-color: #f0f0f0;" data-height-listener-added="true">
+</div>
+<div data-object="true" data-object-type="shape" style="position: absolute; left: 950px; top: 180px; width: 230px; height: 220px; background-color: #ffffff; border-radius: 16px; box-shadow: 0 6px 16px rgba(0,0,0,0.08); z-index: 4;"></div>
+<div data-object="true" data-object-type="image" style="position: absolute; left: 962px; top: 192px; width: 206px; height: 196px; border-radius: 12px; z-index: 5;">
+<img alt="slide4_2" src="src/slide4_2.png" style="width: 100%; height: 100%; object-fit: contain; border-radius: 12px; background-color: #f0f0f0;" data-height-listener-added="true">
+</div>
+<div data-object="true" data-object-type="shape" style="position: absolute; left: 700px; top: 415px; width: 230px; height: 220px; background-color: #ffffff; border-radius: 16px; box-shadow: 0 6px 16px rgba(0,0,0,0.08); z-index: 4;"></div>
+<div data-object="true" data-object-type="image" style="position: absolute; left: 712px; top: 427px; width: 206px; height: 196px; border-radius: 12px; z-index: 5;">
+<img alt="slide4_3" src="src/slide4_3.png" style="width: 100%; height: 100%; object-fit: contain; border-radius: 12px; background-color: #f0f0f0;" data-height-listener-added="true">
+</div>
+<div data-object="true" data-object-type="shape" style="position: absolute; left: 950px; top: 415px; width: 230px; height: 220px; background-color: #ffffff; border-radius: 16px; box-shadow: 0 6px 16px rgba(0,0,0,0.08); z-index: 4;"></div>
+<div data-object="true" data-object-type="image" style="position: absolute; left: 962px; top: 427px; width: 206px; height: 196px; border-radius: 12px; z-index: 5;">
+<img alt="slide4_4" src="src/slide4_4.png" style="width: 100%; height: 100%; object-fit: contain; border-radius: 12px; background-color: #f0f0f0;" data-height-listener-added="true">
+</div>
+<!-- 이미지 캡션 -->
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 680px; top: 670px; width: 520px; height: 30px; z-index: 10; text-align: center;">
+<p style="margin: 0; font-size: 16px; color: #7f8c8d;">
+                ▲ 타슈 대여소 마커 및 실시간 이용 시간 표시 화면
+            </p>
+</div>
+<!-- 하단 페이지 번호 -->
+<div data-object="true" data-object-type="textbox" style="position: absolute; right: 50px; bottom: 30px; width: 50px; height: 30px; z-index: 10; text-align: right;">
+<p style="margin: 0; font-size: 16px; color: #999999;">4</p>
+</div>
+</div>
+
+</body></html>

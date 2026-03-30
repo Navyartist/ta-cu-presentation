@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light" style=""><head>
+<meta charset="utf-8">
+<meta content="width=1280, height=720, initial-scale=1.0" name="viewport">
+<title>기술 스택과 아키텍처</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&amp;family=Do+Hyeon&amp;display=swap" rel="stylesheet">
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            width: 1280px;
+            height: 720px;
+            overflow: hidden;
+            background-color: #f8fcf9;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        .slide-container {
+            position: relative;
+            width: 1280px;
+            height: 720px;
+            overflow: hidden;
+            background-color: #ffffff;
+            /* 그리드 패턴 (linear-gradient 사용 대신 투명도 있는 배경색과 격자 무늬 이미지 사용 권장하지만, 
+               요청사항에 따라 background-image를 linear-gradient로 수정) */
+            background-image: 
+                linear-gradient(rgba(46, 204, 113, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(46, 204, 113, 0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+    </style>
+</head>
+<body style="">
+<div class="slide-container">
+<!-- 상단 헤더 배경 -->
+<div data-object="true" data-object-type="shape" style="position: absolute; left: 0; top: 0; width: 1280px; height: 100px; background-color: #0e381e; z-index: 1;"></div>
+<!-- 로고/뱃지 영역 -->
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 50px; top: 30px; width: 300px; height: 40px; z-index: 10;">
+<p style="margin: 0; font-size: 20px; color: #ffffff; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">
+<i class="fas fa-leaf" style="color: #2ecc71; margin-right: 8px;"></i> TA-CU</p>
+</div>
+<!-- 페이지 타이틀 -->
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 50px; top: 120px; width: 800px; height: 80px; z-index: 10;">
+<p style="margin: 0; font-family: 'Do Hyeon', sans-serif; font-size: 48px; color: #0e381e; line-height: 1.2;">
+                기술 스택과 <span style="color: #27ae60;">아키텍처</span>
+</p>
+</div>
+<!-- 아키텍처 다이어그램 영역 배경 -->
+<div data-object="true" data-object-type="shape" style="position: absolute; left: 450px; top: 160px; width: 780px; height: 500px; background-color: #f9fdfa; border: 2px solid #e0e0e0; border-radius: 12px; z-index: 1;"></div>
+<!-- 아키텍처 타이틀 -->
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 470px; top: 175px; width: 300px; height: 30px; z-index: 10;">
+<p style="margin: 0; font-size: 18px; font-weight: 700; color: #2c3e50;">
+<i class="fas fa-sitemap" style="margin-right: 8px; color: #2ecc71;"></i>시스템 아키텍처 흐름도
+            </p>
+</div>
+<!-- 1. 기술 스택 목록 (왼쪽 사이드바) -->
+<!-- 앱 (App) -->
+<div data-object="true" data-object-type="shape" style="position: absolute; left: 50px; top: 220px; width: 360px; height: 100px; background-color: #ffffff; border-left: 5px solid #61dafb; border-radius: 0 8px 8px 0; box-shadow: 0 2px 5px rgba(0,0,0,0.05); z-index: 2;"></div>
+<div data-object="true" data-object-type="icon" style="position: absolute; left: 70px; top: 245px; width: 50px; height: 50px; font-size: 36px; color: #61dafb; z-index: 10; text-align: center;">
+<i class="fab fa-react"></i>
+</div>
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 130px; top: 230px; width: 260px; height: 80px; z-index: 10;">
+<p style="margin: 0 0 5px 0; font-size: 20px; font-weight: 700; color: #333333;">App: React Native</p>
+<p style="margin: 0; font-size: 14px; color: #666666;">Expo 프레임워크<br>GPS/Web GPS (navigator)</p>
+</div>
+<!-- 서버 (Server) -->
+<div data-object="true" data-object-type="shape" style="position: absolute; left: 50px; top: 340px; width: 360px; height: 100px; background-color: #ffffff; border-left: 5px solid #68a063; border-radius: 0 8px 8px 0; box-shadow: 0 2px 5px rgba(0,0,0,0.05); z-index: 2;"></div>
+<div data-object="true" data-object-type="icon" style="position: absolute; left: 70px; top: 365px; width: 50px; height: 50px; font-size: 36px; color: #68a063; z-index: 10; text-align: center;">
+<i class="fab fa-node-js"></i>
+</div>
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 130px; top: 350px; width: 260px; height: 80px; z-index: 10;">
+<p style="margin: 0 0 5px 0; font-size: 20px; font-weight: 700; color: #333333;">Server: Node.js</p>
+<p style="margin: 0; font-size: 14px; color: #666666;">Express 프레임워크<br>Proxy / Core 로직 처리</p>
+</div>
+<!-- DB & Auth -->
+<div data-object="true" data-object-type="shape" style="position: absolute; left: 50px; top: 460px; width: 360px; height: 100px; background-color: #ffffff; border-left: 5px solid #ffca28; border-radius: 0 8px 8px 0; box-shadow: 0 2px 5px rgba(0,0,0,0.05); z-index: 2;"></div>
+<div data-object="true" data-object-type="icon" style="position: absolute; left: 70px; top: 485px; width: 50px; height: 50px; font-size: 36px; color: #ffca28; z-index: 10; text-align: center;">
+<i class="fas fa-fire"></i>
+</div>
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 130px; top: 470px; width: 260px; height: 80px; z-index: 10;">
+<p style="margin: 0 0 5px 0; font-size: 20px; font-weight: 700; color: #333333;">DB &amp; Auth: Firebase</p>
+<p style="margin: 0; font-size: 14px; color: #666666;">Firestore (NoSQL)<br>Authentication (로그인)</p>
+</div>
+<!-- 외부 API -->
+<div data-object="true" data-object-type="shape" style="position: absolute; left: 50px; top: 580px; width: 360px; height: 100px; background-color: #ffffff; border-left: 5px solid #3498db; border-radius: 0 8px 8px 0; box-shadow: 0 2px 5px rgba(0,0,0,0.05); z-index: 2;"></div>
+<div data-object="true" data-object-type="icon" style="position: absolute; left: 70px; top: 605px; width: 50px; height: 50px; font-size: 36px; color: #3498db; z-index: 10; text-align: center;">
+<i class="fas fa-cloud"></i>
+</div>
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 130px; top: 590px; width: 260px; height: 80px; z-index: 10;">
+<p style="margin: 0 0 5px 0; font-size: 20px; font-weight: 700; color: #333333;">External APIs</p>
+<p style="margin: 0; font-size: 14px; color: #666666;">카카오맵 API (지도)<br>타슈 Open API (데이터)</p>
+</div>
+<!-- 아키텍처 다이어그램 내용 -->
+<!-- 클라이언트 영역 -->
+<div data-object="true" data-object-type="shape" style="position: absolute; left: 490px; top: 240px; width: 200px; height: 340px; background-color: #e8f4fc; border: 2px dashed #3498db; border-radius: 8px; z-index: 3;"></div>
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 490px; top: 210px; width: 200px; height: 30px; z-index: 10; text-align: center;">
+<p style="margin: 0; font-size: 16px; font-weight: 700; color: #3498db;">Client Side</p>
+</div>
+<!-- 모바일/웹 앱 박스 -->
+<div data-object="true" data-object-type="shape" style="position: absolute; left: 510px; top: 320px; width: 160px; height: 180px; background-color: #ffffff; border: 1px solid #b0c4de; border-radius: 8px; z-index: 4;"></div>
+<div data-object="true" data-object-type="icon" style="position: absolute; left: 565px; top: 340px; width: 50px; height: 50px; font-size: 40px; color: #2c3e50; z-index: 10; text-align: center;">
+<i class="fas fa-mobile-alt"></i>
+</div>
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 520px; top: 400px; width: 140px; height: 80px; z-index: 10; text-align: center;">
+<p style="margin: 0; font-size: 16px; font-weight: 700; color: #333;">React Native App</p>
+<p style="margin: 5px 0 0 0; font-size: 12px; color: #666;">GPS (Location)<br>Camera (QR)</p>
+</div>
+<!-- 화살표 (Client <-> Server) -->
+<div data-object="true" data-object-type="shape" style="position: absolute; left: 690px; top: 400px; width: 80px; height: 2px; background-color: #7f8c8d; z-index: 5;"></div>
+<div data-object="true" data-object-type="icon" style="position: absolute; left: 750px; top: 391px; width: 20px; height: 20px; font-size: 16px; color: #7f8c8d; z-index: 10;">
+<i class="fas fa-caret-right"></i>
+</div>
+<div data-object="true" data-object-type="icon" style="position: absolute; left: 690px; top: 391px; width: 20px; height: 20px; font-size: 16px; color: #7f8c8d; z-index: 10;">
+<i class="fas fa-caret-left"></i>
+</div>
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 700px; top: 375px; width: 60px; height: 20px; z-index: 10; text-align: center;">
+<p style="margin: 0; font-size: 12px; font-weight: 700; color: #7f8c8d;">HTTPS</p>
+</div>
+<!-- 서버 영역 -->
+<div data-object="true" data-object-type="shape" style="position: absolute; left: 770px; top: 240px; width: 200px; height: 340px; background-color: #ebf9ed; border: 2px dashed #2ecc71; border-radius: 8px; z-index: 3;"></div>
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 770px; top: 210px; width: 200px; height: 30px; z-index: 10; text-align: center;">
+<p style="margin: 0; font-size: 16px; font-weight: 700; color: #2ecc71;">Server Side</p>
+</div>
+<!-- Node.js 서버 박스 -->
+<div data-object="true" data-object-type="shape" style="position: absolute; left: 790px; top: 320px; width: 160px; height: 180px; background-color: #ffffff; border: 1px solid #a5d6a7; border-radius: 8px; z-index: 4;"></div>
+<div data-object="true" data-object-type="icon" style="position: absolute; left: 845px; top: 340px; width: 50px; height: 50px; font-size: 40px; color: #2ecc71; z-index: 10; text-align: center;">
+<i class="fas fa-server"></i>
+</div>
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 800px; top: 400px; width: 140px; height: 80px; z-index: 10; text-align: center;">
+<p style="margin: 0; font-size: 16px; font-weight: 700; color: #333;">Node.js API</p>
+<p style="margin: 5px 0 0 0; font-size: 12px; color: #666;">/core (탄소계산)<br>/proxy (API 중계)</p>
+</div>
+<!-- 화살표 (Server <-> External) -->
+<div data-object="true" data-object-type="shape" style="position: absolute; left: 970px; top: 350px; width: 60px; height: 2px; background-color: #7f8c8d; z-index: 5;"></div>
+<div data-object="true" data-object-type="icon" style="position: absolute; left: 1010px; top: 341px; width: 20px; height: 20px; font-size: 16px; color: #7f8c8d; z-index: 10;">
+<i class="fas fa-caret-right"></i>
+</div>
+<div data-object="true" data-object-type="shape" style="position: absolute; left: 970px; top: 460px; width: 60px; height: 2px; background-color: #7f8c8d; z-index: 5;"></div>
+<div data-object="true" data-object-type="icon" style="position: absolute; left: 1010px; top: 451px; width: 20px; height: 20px; font-size: 16px; color: #7f8c8d; z-index: 10;">
+<i class="fas fa-caret-right"></i>
+</div>
+<!-- 외부 서비스 영역 -->
+<div data-object="true" data-object-type="shape" style="position: absolute; left: 1030px; top: 240px; width: 180px; height: 340px; background-color: #fcf6e8; border: 2px dashed #f1c40f; border-radius: 8px; z-index: 3;"></div>
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 1030px; top: 210px; width: 180px; height: 30px; z-index: 10; text-align: center;">
+<p style="margin: 0; font-size: 16px; font-weight: 700; color: #f39c12;">Cloud &amp; External</p>
+</div>
+<!-- Firebase 박스 -->
+<div data-object="true" data-object-type="shape" style="position: absolute; left: 1040px; top: 260px; width: 160px; height: 80px; background-color: #ffffff; border: 1px solid #fce8b2; border-radius: 6px; z-index: 4;"></div>
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 1040px; top: 275px; width: 160px; height: 50px; z-index: 10; text-align: center;">
+<p style="margin: 0; font-size: 14px; font-weight: 700; color: #e67e22;">Firebase</p>
+<p style="margin: 2px 0 0 0; font-size: 11px; color: #666;">DB / Auth</p>
+</div>
+<!-- 카카오맵 박스 -->
+<div data-object="true" data-object-type="shape" style="position: absolute; left: 1040px; top: 370px; width: 160px; height: 80px; background-color: #ffffff; border: 1px solid #fce8b2; border-radius: 6px; z-index: 4;"></div>
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 1040px; top: 385px; width: 160px; height: 50px; z-index: 10; text-align: center;">
+<p style="margin: 0; font-size: 14px; font-weight: 700; color: #f1c40f;">Kakao Map</p>
+<p style="margin: 2px 0 0 0; font-size: 11px; color: #666;">지도 SDK</p>
+</div>
+<!-- 타슈 API 박스 -->
+<div data-object="true" data-object-type="shape" style="position: absolute; left: 1040px; top: 480px; width: 160px; height: 80px; background-color: #ffffff; border: 1px solid #fce8b2; border-radius: 6px; z-index: 4;"></div>
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 1040px; top: 495px; width: 160px; height: 50px; z-index: 10; text-align: center;">
+<p style="margin: 0; font-size: 14px; font-weight: 700; color: #2980b9;">Tashu Open API</p>
+<p style="margin: 2px 0 0 0; font-size: 11px; color: #666;">공공데이터포털</p>
+</div>
+<!-- Cloudflare 배포 정보 -->
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 880px; top: 620px; width: 300px; height: 30px; z-index: 10; text-align: right;">
+<p style="margin: 0; font-size: 14px; color: #95a5a6; font-style: italic;">
+<i class="fas fa-cloud-upload-alt" style="margin-right: 5px;"></i> Deployment: Cloudflare Pages + Tunnel
+            </p>
+</div>
+<!-- 하단 페이지 번호 -->
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 1180px; top: 680px; width: 50px; height: 30px; z-index: 10; text-align: right;">
+<p style="margin: 0; font-size: 16px; color: #999999;">6</p>
+</div>
+</div>
+
+</body></html>

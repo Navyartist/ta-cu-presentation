@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light" style=""><head>
+<meta charset="utf-8">
+<meta content="width=1280, height=720, initial-scale=1.0" name="viewport">
+<title>기술적 도전과 해결</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&amp;family=Do+Hyeon&amp;display=swap" rel="stylesheet">
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            width: 1280px;
+            height: 720px;
+            overflow: hidden;
+            background-color: #f8fcf9;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        .slide-container {
+            position: relative;
+            width: 1280px;
+            height: 720px;
+            overflow: hidden;
+            background-color: #ffffff;
+            background-image: linear-gradient(rgba(46, 204, 113, 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(46, 204, 113, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+    </style>
+</head>
+<body style="">
+<div class="slide-container">
+<!-- 상단 헤더 배경 -->
+<div data-object="true" data-object-type="shape" style="position: absolute; left: 0; top: 0; width: 1280px; height: 100px; background-color: #0e381e; z-index: 1;"></div>
+<!-- 로고/뱃지 영역 -->
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 50px; top: 30px; width: 300px; height: 40px; z-index: 10;">
+<p style="margin: 0; font-size: 20px; color: #ffffff; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">
+<i class="fas fa-leaf" style="color: #2ecc71; margin-right: 8px;"></i> TA-CU</p>
+</div>
+<!-- 페이지 타이틀 -->
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 50px; top: 120px; width: 800px; height: 80px; z-index: 10;">
+<p style="margin: 0; font-family: 'Do Hyeon', sans-serif; font-size: 48px; color: #0e381e; line-height: 1.2;">
+                기술적 도전과 <span style="color: #27ae60;">해결</span>
+</p>
+</div>
+<!-- 중앙 타임라인 선 -->
+<div data-object="true" data-object-type="shape" style="position: absolute; left: 638px; top: 220px; width: 4px; height: 440px; background-color: #e0e0e0; z-index: 2;"></div>
+<!-- 타임라인 아이템 1: 카카오맵 SDK (왼쪽: 문제, 오른쪽: 해결) -->
+<!-- 날짜/단계 표시 -->
+<div data-object="true" data-object-type="shape" style="position: absolute; left: 616px; top: 240px; width: 40px; height: 40px; border-radius: 50%; background-color: #e74c3c; border: 4px solid #ffffff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 5;"></div>
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 620px; top: 248px; width: 40px; height: 30px; z-index: 10; text-align: center;">
+<p style="margin: 0; font-size: 16px; font-weight: 700; color: #ffffff;">1</p>
+</div>
+<!-- 문제 (왼쪽) -->
+<div data-object="true" data-object-type="shape" style="position: absolute; left: 100px; top: 220px; width: 480px; height: 120px; background-color: #fff5f5; border-left: 5px solid #e74c3c; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); z-index: 2;"></div>
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 120px; top: 235px; width: 440px; height: 90px; z-index: 10;">
+<p style="margin: 0 0 5px 0; font-size: 20px; font-weight: 700; color: #c0392b;">
+<i class="fas fa-exclamation-triangle" style="margin-right: 8px;"></i>카카오맵 SDK 로드 타이밍
+            </p>
+<p style="margin: 0; font-size: 16px; color: #555555; line-height: 1.5; word-break: keep-all;">
+                `window.kakao` 객체가 정의되기 전에 지도 초기화를 시도하여 오류 발생. React의 렌더링 속도와 SDK 로드 속도 불일치.
+            </p>
+</div>
+<!-- 해결 (오른쪽) -->
+<div data-object="true" data-object-type="shape" style="position: absolute; left: 700px; top: 220px; width: 480px; height: 120px; background-color: #f0fdf4; border-right: 5px solid #2ecc71; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); z-index: 2;"></div>
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 720px; top: 235px; width: 440px; height: 90px; z-index: 10; text-align: right;">
+<p style="margin: 0 0 5px 0; font-size: 20px; font-weight: 700; color: #27ae60;">
+                재시도 로직 구현<i class="fas fa-check-circle" style="margin-left: 8px;"></i>
+</p>
+<p style="margin: 0; font-size: 16px; color: #555555; line-height: 1.5; word-break: keep-all;">
+                250ms 간격으로 SDK 로드 여부를 확인하는 재시도 로직(최대 10초)을 추가하여 안정적인 지도 초기화 보장.
+            </p>
+</div>
+<!-- 타임라인 아이템 2: 타슈 API 인증 (오른쪽: 문제, 왼쪽: 해결 - 시각적 변화를 위해) -->
+<!-- 원래 요청대로 왼쪽 문제, 오른쪽 해결 구조 유지하되 색상으로 구분 -->
+<!-- 날짜/단계 표시 -->
+<div data-object="true" data-object-type="shape" style="position: absolute; left: 616px; top: 380px; width: 40px; height: 40px; border-radius: 50%; background-color: #f39c12; border: 4px solid #ffffff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 5;"></div>
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 620px; top: 388px; width: 40px; height: 30px; z-index: 10; text-align: center;">
+<p style="margin: 0; font-size: 16px; font-weight: 700; color: #ffffff;">2</p>
+</div>
+<!-- 문제 (왼쪽) -->
+<div data-object="true" data-object-type="shape" style="position: absolute; left: 100px; top: 360px; width: 480px; height: 120px; background-color: #fffaf0; border-left: 5px solid #f39c12; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); z-index: 2;"></div>
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 120px; top: 375px; width: 440px; height: 90px; z-index: 10;">
+<p style="margin: 0 0 5px 0; font-size: 20px; font-weight: 700; color: #d35400;">
+<i class="fas fa-key" style="margin-right: 8px;"></i>타슈 API 인증 방식 불일치
+            </p>
+<p style="margin: 0; font-size: 16px; color: #555555; line-height: 1.5; word-break: keep-all;">
+                기존 코드는 쿼리스트링 방식을 사용했으나, 실제 API는 헤더(`api-token`) 인증만 허용하여 401 Unauthorized 오류 발생.
+            </p>
+</div>
+<!-- 해결 (오른쪽) -->
+<div data-object="true" data-object-type="shape" style="position: absolute; left: 700px; top: 360px; width: 480px; height: 120px; background-color: #f0fdf4; border-right: 5px solid #2ecc71; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); z-index: 2;"></div>
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 720px; top: 375px; width: 440px; height: 90px; z-index: 10; text-align: right;">
+<p style="margin: 0 0 5px 0; font-size: 20px; font-weight: 700; color: #27ae60;">
+                헤더 인증 및 파서 재작성<i class="fas fa-check-circle" style="margin-left: 8px;"></i>
+</p>
+<p style="margin: 0; font-size: 16px; color: #555555; line-height: 1.5; word-break: keep-all;">
+                인증 방식을 Header로 변경하고, 응답 데이터 구조(`results[]`)에 맞춰 파서를 전면 수정하여 데이터 연동 성공.
+            </p>
+</div>
+<!-- 타임라인 아이템 3: GPS 품질 (왼쪽: 문제, 오른쪽: 해결) -->
+<!-- 날짜/단계 표시 -->
+<div data-object="true" data-object-type="shape" style="position: absolute; left: 616px; top: 520px; width: 40px; height: 40px; border-radius: 50%; background-color: #3498db; border: 4px solid #ffffff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 5;"></div>
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 620px; top: 528px; width: 40px; height: 30px; z-index: 10; text-align: center;">
+<p style="margin: 0; font-size: 16px; font-weight: 700; color: #ffffff;">3</p>
+</div>
+<!-- 문제 (왼쪽) -->
+<div data-object="true" data-object-type="shape" style="position: absolute; left: 100px; top: 500px; width: 480px; height: 120px; background-color: #e8f4fc; border-left: 5px solid #3498db; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); z-index: 2;"></div>
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 120px; top: 515px; width: 440px; height: 90px; z-index: 10;">
+<p style="margin: 0 0 5px 0; font-size: 20px; font-weight: 700; color: #2980b9;">
+<i class="fas fa-satellite-dish" style="margin-right: 8px;"></i>GPS 신호 튀는 현상
+            </p>
+<p style="margin: 0; font-size: 16px; color: #555555; line-height: 1.5; word-break: keep-all;">
+                도심 빌딩 숲에서 GPS 오차가 발생하여 실제 이동하지 않은 거리까지 계산되거나 경로가 지그재그로 표시됨.
+            </p>
+</div>
+<!-- 해결 (오른쪽) -->
+<div data-object="true" data-object-type="shape" style="position: absolute; left: 700px; top: 500px; width: 480px; height: 120px; background-color: #f0fdf4; border-right: 5px solid #2ecc71; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); z-index: 2;"></div>
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 720px; top: 515px; width: 440px; height: 90px; z-index: 10; text-align: right;">
+<p style="margin: 0 0 5px 0; font-size: 20px; font-weight: 700; color: #27ae60;">
+                Accuracy 필터링 적용<i class="fas fa-check-circle" style="margin-left: 8px;"></i>
+</p>
+<p style="margin: 0; font-size: 16px; color: #555555; line-height: 1.5; word-break: keep-all;">
+                브라우저가 제공하는 `accuracy`(정확도 반경) 값이 30m 이상인 저정밀 신호는 기록에서 자동 제외하여 데이터 품질 향상.
+            </p>
+</div>
+<!-- 하단 페이지 번호 -->
+<div data-object="true" data-object-type="textbox" style="position: absolute; left: 1180px; top: 680px; width: 50px; height: 30px; z-index: 10; text-align: right;">
+<p style="margin: 0; font-size: 16px; color: #999999;">7</p>
+</div>
+</div>
+
+</body></html>
