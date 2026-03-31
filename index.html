@@ -406,9 +406,12 @@
       const y = event.clientY - bounds.top;
       const topZoneHeight = Math.min(96, bounds.height * 0.14);
       const sideZoneWidth = Math.min(120, bounds.width * 0.12);
+      const sideZoneTop = bounds.height * 0.29;
+      const sideZoneBottom = bounds.height * 0.71;
       const nearTop = y >= 0 && y <= topZoneHeight;
-      const nearLeft = x >= 0 && x <= sideZoneWidth;
-      const nearRight = x >= bounds.width - sideZoneWidth && x <= bounds.width;
+      const inVerticalBand = y >= sideZoneTop && y <= sideZoneBottom;
+      const nearLeft = x >= 0 && x <= sideZoneWidth && inVerticalBand;
+      const nearRight = x >= bounds.width - sideZoneWidth && x <= bounds.width && inVerticalBand;
       const showNav = nearLeft || nearRight;
       const showAny = nearTop || showNav;
 
