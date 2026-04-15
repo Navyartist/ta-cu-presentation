@@ -390,8 +390,11 @@
     const fullscreenButton = document.getElementById("fullscreenButton");
     const fullscreenLabel = document.getElementById("fullscreenLabel");
     const footerHint = document.getElementById("footerHint");
+    const wheelNavigationThreshold = 24;
+    const wheelNavigationCooldown = 420;
 
     let currentIndex = getInitialIndex();
+    let lastWheelNavigationAt = 0;
 
     function updateUiVisibility(event) {
       if (window.matchMedia("(hover: none)").matches) {
@@ -475,8 +478,8 @@
       const isFullscreen = Boolean(document.fullscreenElement);
       fullscreenLabel.textContent = isFullscreen ? "Exit fullscreen" : "Fullscreen";
       footerHint.textContent = isFullscreen
-        ? "Use Esc to leave fullscreen"
-        : "Use click, arrow keys, or F for fullscreen";
+        ? "Use Space or wheel to navigate, Esc to leave fullscreen"
+        : "Use click, arrows, Space, wheel, or F";
     }
 
     function loadSlide(index) {
@@ -526,6 +529,11 @@
           event.preventDefault();
           goToNext();
           break;
+        case " ":
+        case "Spacebar":
+          event.preventDefault();
+          goToNext();
+          break;
         case "Home":
           event.preventDefault();
           loadSlide(0);
@@ -544,6 +552,36 @@
       }
     }
 
+    function handleWheel(event) {
+      if (event.defaultPrevented || event.ctrlKey) {
+        return;
+      }
+
+      const dominantDelta = Math.abs(event.deltaY) >= Math.abs(event.deltaX)
+        ? event.deltaY
+        : event.deltaX;
+
+      if (Math.abs(dominantDelta) < wheelNavigationThreshold) {
+        return;
+      }
+
+      const now = Date.now();
+      if (now - lastWheelNavigationAt < wheelNavigationCooldown) {
+        event.preventDefault();
+        return;
+      }
+
+      lastWheelNavigationAt = now;
+      event.preventDefault();
+
+      if (dominantDelta > 0) {
+        goToNext();
+        return;
+      }
+
+      goToPrevious();
+    }
+
     function handleHashChange() {
       const nextIndex = getInitialIndex();
       if (nextIndex !== currentIndex) {
@@ -559,6 +597,7 @@
 
     viewer.addEventListener("mousemove", updateUiVisibility);
     viewer.addEventListener("mouseleave", clearUiVisibility);
+    viewer.addEventListener("wheel", handleWheel, { passive: false });
     window.addEventListener("resize", updateScale);
     window.addEventListener("keydown", handleKeydown);
     window.addEventListener("hashchange", handleHashChange);
