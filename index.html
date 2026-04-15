@@ -75,12 +75,24 @@
     }
 
     .stage-frame {
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
       border: 0;
       display: block;
       background: #ffffff;
       pointer-events: none;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 180ms ease, visibility 0s linear 180ms;
+      will-change: opacity;
+    }
+
+    .stage-frame.is-visible {
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 180ms ease;
     }
 
     .chrome {
@@ -319,10 +331,18 @@
   <main class="viewer" id="viewer">
     <div class="stage" id="stage">
       <iframe
-        id="slideFrame"
+        id="slideFramePrimary"
         class="stage-frame"
         title="Presentation Slide"
         loading="eager"
+        aria-hidden="false"
+      ></iframe>
+      <iframe
+        id="slideFrameSecondary"
+        class="stage-frame"
+        title="Presentation Slide (Buffered)"
+        loading="eager"
+        aria-hidden="true"
       ></iframe>
     </div>
 
@@ -330,7 +350,7 @@
       <div class="toolbar" role="toolbar" aria-label="Presentation controls">
         <div class="title-block">
           <div class="title">TA-CU Presentation</div>
-          <div class="subtitle">Arrow keys to navigate, F to toggle fullscreen</div>
+          <div class="subtitle">Arrows, Space, wheel, and F</div>
         </div>
 
         <div class="counter" id="slideCounter">1 / 10</div>
@@ -383,7 +403,10 @@
     const slideWidth = 1280;
     const slideHeight = 720;
     const viewer = document.getElementById("viewer");
-    const frame = document.getElementById("slideFrame");
+    const frames = [
+      document.getElementById("slideFramePrimary"),
+      document.getElementById("slideFrameSecondary")
+    ];
     const counter = document.getElementById("slideCounter");
     const prevButton = document.getElementById("prevButton");
     const nextButton = document.getElementById("nextButton");
@@ -394,7 +417,14 @@
     const wheelNavigationCooldown = 420;
 
     let currentIndex = getInitialIndex();
+    let desiredIndex = currentIndex;
     let lastWheelNavigationAt = 0;
+    let activeFrameIndex = 0;
+    let isNavigationInFlight = false;
+    const frameStates = frames.map(() => ({
+      slideIndex: null,
+      loadToken: 0
+    }));
 
     function updateUiVisibility(event) {
       if (window.matchMedia("(hover: none)").matches) {
@@ -482,22 +512,84 @@
         : "Use click, arrows, Space, wheel, or F";
     }
 
+    function updateFrameVisibility() {
+      frames.forEach((frame, frameIndex) => {
+        const isVisible = frameIndex === activeFrameIndex;
+        frame.classList.toggle("is-visible", isVisible);
+        frame.setAttribute("aria-hidden", isVisible ? "false" : "true");
+      });
+    }
+
+    function loadFrame(frameIndex, slideIndex, onReady) {
+      const frame = frames[frameIndex];
+      const state = frameStates[frameIndex];
+
+      if (state.slideIndex === slideIndex) {
+        onReady();
+        return;
+      }
+
+      const loadToken = state.loadToken + 1;
+      state.loadToken = loadToken;
+
+      frame.addEventListener("load", function handleLoad() {
+        if (state.loadToken !== loadToken) {
+          return;
+        }
+
+        state.slideIndex = slideIndex;
+        onReady();
+      }, { once: true });
+
+      frame.src = slides[slideIndex];
+    }
+
+    function processNavigation() {
+      if (isNavigationInFlight || desiredIndex === currentIndex) {
+        return;
+      }
+
+      isNavigationInFlight = true;
+
+      const targetIndex = desiredIndex;
+      const nextFrameIndex = 1 - activeFrameIndex;
+
+      loadFrame(nextFrameIndex, targetIndex, () => {
+        currentIndex = targetIndex;
+        activeFrameIndex = nextFrameIndex;
+        updateFrameVisibility();
+        syncHash();
+        updateControls();
+        isNavigationInFlight = false;
+
+        if (desiredIndex !== currentIndex) {
+          processNavigation();
+        }
+      });
+    }
+
     function loadSlide(index) {
-      currentIndex = clampIndex(index);
-      frame.src = slides[currentIndex];
+      desiredIndex = clampIndex(index);
+      processNavigation();
+    }
+
+    function initializeSlides() {
+      frameStates[activeFrameIndex].slideIndex = currentIndex;
+      frames[activeFrameIndex].src = slides[currentIndex];
+      updateFrameVisibility();
       syncHash();
       updateControls();
     }
 
     function goToPrevious() {
-      if (currentIndex > 0) {
-        loadSlide(currentIndex - 1);
+      if (desiredIndex > 0) {
+        loadSlide(desiredIndex - 1);
       }
     }
 
     function goToNext() {
-      if (currentIndex < slides.length - 1) {
-        loadSlide(currentIndex + 1);
+      if (desiredIndex < slides.length - 1) {
+        loadSlide(desiredIndex + 1);
       }
     }
 
@@ -608,7 +700,7 @@
 
     updateScale();
     clearUiVisibility();
-    loadSlide(currentIndex);
+    initializeSlides();
   </script>
 </body>
 </html>
