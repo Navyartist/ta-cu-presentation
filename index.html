@@ -85,14 +85,12 @@
       pointer-events: none;
       opacity: 0;
       visibility: hidden;
-      transition: opacity 180ms ease, visibility 0s linear 180ms;
       will-change: opacity;
     }
 
     .stage-frame.is-visible {
       opacity: 1;
       visibility: visible;
-      transition: opacity 180ms ease;
     }
 
     .chrome {
@@ -413,12 +411,14 @@
     const fullscreenButton = document.getElementById("fullscreenButton");
     const fullscreenLabel = document.getElementById("fullscreenLabel");
     const footerHint = document.getElementById("footerHint");
-    const wheelNavigationThreshold = 24;
-    const wheelNavigationCooldown = 420;
+    const wheelNavigationThreshold = 72;
+    const wheelNavigationCooldown = 110;
 
     let currentIndex = getInitialIndex();
     let desiredIndex = currentIndex;
     let lastWheelNavigationAt = 0;
+    let wheelDeltaAccumulator = 0;
+    let wheelFlushTimer = null;
     let activeFrameIndex = 0;
     let isNavigationInFlight = false;
     const frameStates = frames.map(() => ({
@@ -573,6 +573,42 @@
       processNavigation();
     }
 
+    function scheduleWheelFlush(delay) {
+      if (wheelFlushTimer !== null) {
+        window.clearTimeout(wheelFlushTimer);
+      }
+
+      wheelFlushTimer = window.setTimeout(() => {
+        wheelFlushTimer = null;
+        flushWheelNavigation();
+      }, delay);
+    }
+
+    function flushWheelNavigation() {
+      if (Math.abs(wheelDeltaAccumulator) < wheelNavigationThreshold) {
+        return;
+      }
+
+      const elapsed = Date.now() - lastWheelNavigationAt;
+      if (elapsed < wheelNavigationCooldown) {
+        scheduleWheelFlush(wheelNavigationCooldown - elapsed);
+        return;
+      }
+
+      const direction = Math.sign(wheelDeltaAccumulator);
+      const targetIndex = clampIndex(desiredIndex + direction);
+      const appliedSteps = Math.abs(targetIndex - desiredIndex);
+
+      if (appliedSteps === 0) {
+        wheelDeltaAccumulator = 0;
+        return;
+      }
+
+      wheelDeltaAccumulator = 0;
+      lastWheelNavigationAt = Date.now();
+      loadSlide(targetIndex);
+    }
+
     function initializeSlides() {
       frameStates[activeFrameIndex].slideIndex = currentIndex;
       frames[activeFrameIndex].src = slides[currentIndex];
@@ -653,25 +689,17 @@
         ? event.deltaY
         : event.deltaX;
 
-      if (Math.abs(dominantDelta) < wheelNavigationThreshold) {
+      if (Math.abs(dominantDelta) < 4) {
         return;
       }
 
-      const now = Date.now();
-      if (now - lastWheelNavigationAt < wheelNavigationCooldown) {
-        event.preventDefault();
-        return;
+      if (wheelDeltaAccumulator !== 0 && Math.sign(wheelDeltaAccumulator) !== Math.sign(dominantDelta)) {
+        wheelDeltaAccumulator = 0;
       }
 
-      lastWheelNavigationAt = now;
       event.preventDefault();
-
-      if (dominantDelta > 0) {
-        goToNext();
-        return;
-      }
-
-      goToPrevious();
+      wheelDeltaAccumulator += dominantDelta;
+      flushWheelNavigation();
     }
 
     function handleHashChange() {
